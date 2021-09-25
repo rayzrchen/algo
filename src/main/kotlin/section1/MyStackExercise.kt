@@ -24,17 +24,14 @@ class MyStackExercise {
 
     fun checkBalance(s: String): Boolean {
         val stack = Stack<Char>()
+
         s.toCharArray().forEach {
             when {
                 leftBrackets.contains(it) -> stack.push(it)
                 rightBrackets.contains(it) -> {
-                    if (stack.isNotEmpty()) {
-                        if (isRightCharMatchedLeft(stack, it)) return false
-                    } else {
+                    if (stack.isEmpty() || !isRightCharMatchedLeft(stack, it)) {
                         return false
                     }
-                }
-                else -> {
                 }
             }
         }

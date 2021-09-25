@@ -70,12 +70,6 @@ internal class MyBinaryTreeTest {
 
     @Test
     fun isValidTest() {
-        val tree = MyBinaryTree()
-        tree.insert(10)
-        tree.insert(20)
-        tree.insert(30)
-        assertFalse(tree.isValid())
-
         val tree2 = MyBinaryTree()
         tree2.insert(20)
         tree2.insert(10)
