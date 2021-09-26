@@ -26,9 +26,31 @@ class MyTrie {
         }
 
         fun hasNoChildren() = children.isEmpty()
+
+        fun setChild(node: Node) {
+            children[node.value] = node
+        }
     }
 
     var root: Node = Node(' ')
+
+    fun add(word: String) {
+        root = addR(root, word)
+    }
+
+    private fun addR(node: Node, word: String, index: Int = 0): Node {
+        if (index == word.length) {
+            node.isEndOfWord = true
+            return node
+        }
+
+        val char = word[index]
+        val child = node.getChild(char) ?: Node(char)
+
+        node.setChild(addR(child, word, index + 1))
+
+        return node
+    }
 
     fun insert(word: String) {
         var current = root

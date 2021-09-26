@@ -75,4 +75,19 @@ internal class MyTrieTest {
         assertThat(trie.findWords("cc")).containsExactlyInAnyOrder()
     }
 
+
+    @Test
+    fun test6() {
+        val trie = MyTrie()
+        trie.add("card")
+        trie.add("car")
+        trie.add("care")
+        trie.add("egg")
+        assertThat(trie.findWords("car")).containsExactlyInAnyOrder("card", "care",  "car")
+        assertThat(trie.findWords("")).containsExactlyInAnyOrder("card", "care",  "car", "egg")
+        assertThat(trie.findWords("egg")).containsExactlyInAnyOrder("egg")
+        assertThat(trie.findWords("cc")).containsExactlyInAnyOrder()
+
+    }
+
 }
