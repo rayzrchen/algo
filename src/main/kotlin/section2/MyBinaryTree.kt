@@ -1,5 +1,8 @@
 package section2
 
+import java.util.*
+import kotlin.collections.ArrayDeque
+
 class MyBinaryTree {
     private class Node(var value: Int, var leftChild: Node? = null, var rightChild: Node? = null) {
         override fun toString(): String {
@@ -63,6 +66,26 @@ class MyBinaryTree {
         traversePreOrder(node.rightChild)
     }
 
+
+    fun traversePreOrderStack() {
+        val stack = Stack<Node>()
+        stack.push(root)
+
+        while (stack.isNotEmpty()) {
+            val currentNode = stack.pop()
+            print("${currentNode.value}, ")
+
+            if (currentNode.rightChild != null) {
+                stack.push(currentNode.rightChild)
+            }
+            if (currentNode.leftChild != null) {
+                stack.push(currentNode.leftChild)
+            }
+        }
+
+        println()
+    }
+
     fun traverseInOrder() {
         traverseInOrder(root)
         println()
@@ -77,6 +100,25 @@ class MyBinaryTree {
         traverseInOrder(node.rightChild)
     }
 
+    fun traverseInOrderStack() {
+        val stack = Stack<Node>()
+        var currentNode = root
+
+        while (currentNode != null || stack.isNotEmpty()) {
+
+            while (currentNode != null) {
+                stack.push(currentNode)
+                currentNode = currentNode.leftChild
+            }
+
+            currentNode = stack.pop()
+            print("${currentNode!!.value}, ")
+            currentNode = currentNode.rightChild
+        }
+        println()
+    }
+
+
     fun traversePostOrder() {
         traversePostOrder(root)
         println()
@@ -89,6 +131,33 @@ class MyBinaryTree {
         traversePostOrder(node.leftChild)
         traversePostOrder(node.rightChild)
         print("${node.value}, ")
+    }
+
+    fun traversePostOrderStack() {
+        val stack = Stack<Node>()
+
+        var current = root
+        while (true) {
+            while (current != null) {
+                stack.push(current)
+                stack.push(current)
+                current = current.leftChild
+            }
+
+            if (stack.isEmpty()) {
+                break
+            }
+
+            current = stack.pop()
+            current = if (stack.isNotEmpty() && stack.peek() == current) {
+                current.rightChild
+            } else {
+                print("${current.value}, ")
+                null
+            }
+        }
+
+        println()
     }
 
     fun height(): Int {
@@ -338,5 +407,6 @@ class MyBinaryTree {
 
         return false
     }
+
 
 }

@@ -48,6 +48,9 @@ internal class MyTrieTest {
         trie.remove("apple")
         assertEquals(true, trie.contains("app"))
         assertEquals(false, trie.contains("apple"))
+
+        assertEquals(true, trie.containsRecursive("app"))
+        assertEquals(false, trie.containsRecursive("apple"))
     }
 
     @Test
@@ -87,6 +90,21 @@ internal class MyTrieTest {
         assertThat(trie.findWords("")).containsExactlyInAnyOrder("card", "care",  "car", "egg")
         assertThat(trie.findWords("egg")).containsExactlyInAnyOrder("egg")
         assertThat(trie.findWords("cc")).containsExactlyInAnyOrder()
+
+        trie.add("egg")
+        trie.add("egg1")
+        trie.add("eggplant")
+        assertThat(trie.countWords()).isEqualTo(6)
+    }
+
+    @Test
+    fun test7() {
+        val trie = MyTrie()
+        assertThat(trie.longestCommonPrefix("care", "card")).isEqualTo("car")
+        assertThat(trie.longestCommonPrefix("car", "care")).isEqualTo("car")
+        assertThat(trie.longestCommonPrefix("car", "dog")).isEqualTo("")
+        assertThat(trie.longestCommonPrefix("car")).isEqualTo("car")
+
 
     }
 

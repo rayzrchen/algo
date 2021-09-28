@@ -104,4 +104,41 @@ internal class MyBinaryTreeTest {
         assertEquals(listOf(6, 10, 20), tree.ancestorsOf(3))
     }
 
+    @Test
+    fun testInOrder() {
+        val tree = MyBinaryTree()
+        val list = listOf(20, 10, 30, 6, 14, 24, 3, 8, 26)
+        list
+            .forEach {
+                tree.insert(it)
+            }
+        tree.traverseInOrder()
+        tree.traverseInOrderStack()
+    }
+
+    @Test
+    fun testPreOrder() {
+        val tree = MyBinaryTree()
+        val list = listOf(20, 10, 30, 6, 14, 24, 3, 8, 26)
+        list
+            .forEach {
+                tree.insert(it)
+            }
+        tree.traversePreOrder()
+        tree.traversePreOrderStack()
+    }
+
+    @Test
+    fun testPostOrder() {
+        val tree = MyBinaryTree()
+        val list = listOf(20, 10, 30, 6, 14, 24, 3, 8, 26)
+        list
+            .forEach {
+                tree.insert(it)
+            }
+        tree.traversePostOrder()
+        tree.traversePostOrderStack()
+    }
+
+
 }

@@ -1,10 +1,6 @@
 package section2
 
 class MyTrie {
-    companion object {
-        const val alphabetSize = 26
-    }
-
     class Node(
         var value: Char,
         var children: MutableMap<Char, Node> = mutableMapOf(),
@@ -134,5 +130,61 @@ class MyTrie {
         }
 
     }
+
+    fun containsRecursive(word: String): Boolean {
+        return containsRecursiveR(root, word)
+    }
+
+    private fun containsRecursiveR(root: Node, word: String, index: Int = 0): Boolean {
+        if (index == word.length) {
+            return root.isEndOfWord
+        }
+
+        val char = word[index]
+        val child = root.getChild(char) ?: return false
+
+        return containsRecursiveR(child, word, index + 1)
+
+    }
+
+    fun countWords(): Int {
+        val ints = Array(1) { 0 }
+        countWordsR(root, ints)
+        return ints[0]
+    }
+
+    private fun countWordsR(root: Node, ints: Array<Int>) {
+        if (root.isEndOfWord) {
+            ints[0]++
+        }
+
+        for (child in root.getChildren()) {
+            countWordsR(child, ints)
+        }
+
+    }
+
+    fun longestCommonPrefix(vararg array: String): String {
+        root = Node(' ')
+
+        array.forEach {
+            insert(it)
+        }
+        val result = StringBuilder()
+
+        var current = root
+        while (current.children.size == 1 ) {
+            val node = current.getChildren()[0]
+            result.append(node.value)
+            if (node.isEndOfWord) {
+                break
+            }
+            current = node
+        }
+
+        return result.toString()
+
+    }
+
 
 }
