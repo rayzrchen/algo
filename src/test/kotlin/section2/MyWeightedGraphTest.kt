@@ -58,6 +58,22 @@ internal class MyWeightedGraphTest {
     }
 
     @Test
+    fun getMinimumSpanningTreeTest() {
+        val graph = MyWeightedGraph()
+//        graph.addNode("a")
+//        graph.addNode("b")
+//        graph.addNode("c")
+//        graph.addNode("d")
+//        graph.addEdge("a", "b", 3)
+//        graph.addEdge("b", "d", 4)
+//        graph.addEdge("c", "d", 5)
+//        graph.addEdge("a", "c", 1)
+//        graph.addEdge("b", "c", 2)
+        assertThat(graph.getMinimumSpanningTree().toString()).isEqualTo("[]")
+//        assertThat(graph.getMinimumSpanningTree().toString()).isEqualTo(listOf("a", "c", "b","d").toString())
+    }
+
+    @Test
     fun priorityQueueTest() {
         val queue = PriorityQueue<Int> { o1, o2 -> o2 - o1 }
         queue.add(3)

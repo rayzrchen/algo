@@ -53,12 +53,13 @@ class MyWeightedGraph {
         toNode.addEdge(fromNode, weight)
     }
 
-    fun print() {
-        nodes.values.forEach {
-            println(it)
-        }
+    fun print(): String {
+        return nodes.values.toString()
     }
 
+    override fun toString(): String {
+        return nodes.values.map { it.label }.toString()
+    }
 
     fun getShortestDistance(from: String, to: String): Int {
         val fromNode = nodes[from] ?: throw IllegalArgumentException()
@@ -176,6 +177,37 @@ class MyWeightedGraph {
             }
         }
         return false
+    }
+
+    fun getMinimumSpanningTree(): MyWeightedGraph {
+        val result = MyWeightedGraph()
+        if (nodes.values.isEmpty()) {
+            return result
+        }
+
+        val edges = PriorityQueue<Edge>()
+        val startNode = nodes.values.iterator().next()
+        edges.addAll(startNode.getEdges())
+        if (edges.isEmpty()) {
+            return result
+        }
+        result.addNode(startNode.label)
+
+        while (result.nodes.size < nodes.size) {
+            val minEdge = edges.remove()
+            val nextNode = minEdge.to
+
+            if (result.nodes.containsKey(nextNode.label)) {
+                continue
+            }
+
+            result.addNode(nextNode.label)
+            result.addEdge(minEdge.from.label, nextNode.label, minEdge.weight)
+
+            edges.addAll(nextNode.getEdges().filter { !result.nodes.containsKey(it.to.label) })
+        }
+
+        return result
     }
 }
 
